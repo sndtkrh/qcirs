@@ -2,7 +2,7 @@
 #define QCIRCUIT
 #include "common.hpp"
 #include "bitoperation.hpp"
-
+typedef std::vector<comp> Qstate;
 bool no_duplication( const std::vector<qbitsize> & v );
 
 class Qcircuit {
@@ -17,7 +17,7 @@ public:
   qbitsize get_qbit_n(){
     return qbit_n;
   }
-  const std::vector<comp> & get_state() const {
+  const Qstate & get_state() const {
     return state;
   }
   comp & state_at(std::size_t q_idx){
@@ -39,9 +39,28 @@ public:
     }
     return probability;
   }
+  Qstate get_most_likely_state_after_measurement(std::vector<qbitsize> computational_basis){
+    std::vector<double> pr = measure( computational_basis );
+    double p = 0;
+    std::size_t k;
+    for(std::size_t i = 0; i < pr.size(); i++){
+      if( pr[i] > p ){
+        p = pr[i];
+        k = i;
+      }
+    }
+    Qstate likelystate( state.size(), 0 );
+    for(std::size_t s = 0; s < state.size(); s++){
+      if( bitsubset(s, computational_basis) == k ){
+        likelystate[s] = state[s] / sqrt(p);
+      }
+    }
+    return likelystate;
+  }
+
 private:
   qbitsize qbit_n;
-  std::vector<comp> state;
+  Qstate state;
 
   class Qgate {
   public:
@@ -55,8 +74,8 @@ private:
       assert( no_duplication( operand ) );
     }
     void act(){
-      std::vector<comp> newstate(1 << qc->qbit_n, 0);
-      for(int s = 0; s < (1 << qc->qbit_n); s++){
+      Qstate newstate( qc->state.size(), 0);
+      for(std::size_t s = 0; s < qc->state.size(); s++){
         comp coeff = qc->state[s];
         std::size_t idx = 0;
         Vec v( 1 << operand.size(), 0 );

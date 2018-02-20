@@ -18,7 +18,7 @@ void deutsch_jozsa(Qcircuit & qc, std::function<bool(std::size_t)> f){
     qc.add_qgate(H, {i});
   }
   qparallel(qc, f);
-  for(qbitsize i = 0; i < qbit_n - 1; i++){
+  for(qbitsize i = 0; i < qbit_n - 1; i++){　// H^{⊗qbit_n-1}
     qc.add_qgate(H, {i});
   }
 }
