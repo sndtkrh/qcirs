@@ -4,7 +4,32 @@
 
 using namespace std;
 
+void test_deutch_jozsa();
+void test_qmux();
+
 int main(){
+  //test_deutch_jozsa();
+  test_qmux();
+}
+void test_qmux(){
+  Qcircuit qc(2);
+  Qstate state;
+  cout << "CNOT gate by QMUX" << endl;
+  qc.add_qgate_qmux({I_2, PauliX}, {1}, {0});
+  qc.set_state({1,0,0,0});
+  qc.run();
+  cout << state_to_string(qc.get_state(), 2) << endl;
+  qc.set_state({0,1,0,0});
+  qc.run();
+  cout << state_to_string(qc.get_state(), 2) << endl;
+  qc.set_state({0,0,1,0});
+  qc.run();
+  cout << state_to_string(qc.get_state(), 2) << endl;
+  qc.set_state({0,0,0,1});
+  qc.run();
+  cout << state_to_string(qc.get_state(), 2) << endl;
+}
+void test_deutch_jozsa(){
   function<bool(size_t)> f_const = [](size_t a){ return true; };
   function<bool(size_t)> f_balanced = [](size_t a){ return (a % 2 == 0); };
   Qcircuit qc(2 + 1);

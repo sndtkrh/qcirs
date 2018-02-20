@@ -11,22 +11,36 @@ public:
     state.resize( 1 << qbit_n, 0 );
     state[0] = 1; // initialize state to |0...0>
   }
-  void add_qgate(const UnitaryMat & U, const std::vector<qbitsize> & operand ){
-    qgate.emplace_back(this, U, operand);
+  ~Qcircuit(){
+    for( Qgate * qg : qgate ){
+      delete qg;
+    }
   }
-  qbitsize get_qbit_n(){
+  void add_qgate_u(const UnitaryMat & U, const std::vector<qbitsize> & operand ){
+    qgate.push_back( new QgateU(this, U, operand) );
+  }
+  void add_qgate_qmux(const std::vector<UnitaryMat> & Us,
+      const std::vector<qbitsize> & controller,
+      const std::vector<qbitsize> & operand){
+    qgate.push_back( new QgateQMUX(this, Us, controller, operand) );
+  }
+  qbitsize get_qbit_n() const {
     return qbit_n;
   }
   const Qstate & get_state() const {
     return state;
+  }
+  void set_state(const Qstate & s){
+    assert( state.size() == s.size() );
+    state = s;
   }
   comp & state_at(std::size_t q_idx){
     assert( q_idx < state.size() );
     return state[q_idx];
   }
   void run(){
-    for(Qgate & g : qgate){
-      g.act();
+    for(Qgate * qg : qgate){
+      qg->act();
     }
   }
   std::vector<double> measure(std::vector<qbitsize> computational_basis){
@@ -39,7 +53,8 @@ public:
     }
     return probability;
   }
-  Qstate get_most_likely_state_after_measurement(std::vector<qbitsize> computational_basis){
+  Qstate get_most_likely_state_after_measurement(
+      std::vector<qbitsize> computational_basis ){
     std::vector<double> pr = measure( computational_basis );
     double p = 0;
     std::size_t k;
@@ -61,19 +76,43 @@ public:
 private:
   qbitsize qbit_n;
   Qstate state;
-
-  class Qgate {
+  class Qgate{
   public:
-    Qgate(){}
-    Qgate( Qcircuit * qc, const UnitaryMat & U, const std::vector<qbitsize> & operand );
-    void act();
+    void set_qc(Qcircuit * qc_){
+      qc = qc_;
+    }
+    Qcircuit & get_qc() const {
+      return *qc;
+    }
+    virtual void act() = 0;
   private:
     Qcircuit * qc;
+  };
+
+  std::vector<Qgate * > qgate;
+
+  class QgateU : public Qgate {
+  public:
+    QgateU(){}
+    QgateU( Qcircuit * qc, const UnitaryMat & U, const std::vector<qbitsize> & operand );
+    void act();
+  private:
     UnitaryMat U;
     std::vector<qbitsize> operand;
   };
-
-  std::vector<Qgate> qgate;
+  class QgateQMUX : public Qgate { // quantum multiplexer
+  public:
+    QgateQMUX(){}
+    QgateQMUX( Qcircuit * qc,
+              const std::vector<UnitaryMat> & Us,
+              const std::vector<qbitsize> & controller,
+              const std::vector<qbitsize> & operand);
+    void act();
+  private:
+    std::vector<UnitaryMat> Us;
+    std::vector<qbitsize> controller;
+    std::vector<qbitsize> operand;
+  };
 };
 
 std::string state_to_string(Vec a, qbitsize qbit_n){
