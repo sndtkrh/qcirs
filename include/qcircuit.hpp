@@ -2,6 +2,7 @@
 #define QCIRCUIT
 #include "common.hpp"
 #include "bitoperation.hpp"
+#include "matrices.hpp"
 typedef std::vector<comp> Qstate;
 bool no_duplication( const std::vector<qbitsize> & v );
 
@@ -16,13 +17,28 @@ public:
       delete qg;
     }
   }
-  void add_qgate_u(const UnitaryMat & U, const std::vector<qbitsize> & operand ){
+  void add_qgate_u(const UnitaryMat * U, const std::vector<qbitsize> & operand ){
     qgate.push_back( new QgateU(this, U, operand) );
   }
-  void add_qgate_qmux(const std::vector<UnitaryMat> & Us,
+  void add_qgate_qmux(const std::vector<const UnitaryMat *> & Us,
       const std::vector<qbitsize> & controller,
       const std::vector<qbitsize> & operand){
     qgate.push_back( new QgateQMUX(this, Us, controller, operand) );
+  }
+  // f : {0,1}^(controller.size()) -> {0,1} |-> Uf : unitary transformation
+  void add_qgate_qmux(const std::function<bool(std::size_t)> & f,
+      const std::vector<qbitsize> & controller,
+      qbitsize operand) {
+    assert( no_duplication(controller) );
+    std::vector<const UnitaryMat *> Us;
+    for(std::size_t c = 0; c < (1 << controller.size()); c++){
+      if( f(c) ){
+        Us.push_back( &PauliX );
+      }else{
+        Us.push_back( &I_2 );
+      }
+    }
+    qgate.push_back( new QgateQMUX(this, Us, controller, {operand}) );
   }
   qbitsize get_qbit_n() const {
     return qbit_n;
@@ -95,22 +111,22 @@ private:
   class QgateU : public Qgate {
   public:
     QgateU(){}
-    QgateU( Qcircuit * qc, const UnitaryMat & U, const std::vector<qbitsize> & operand );
+    QgateU( Qcircuit * qc, const UnitaryMat * U, const std::vector<qbitsize> & operand );
     void act();
   private:
-    UnitaryMat U;
+    const UnitaryMat * U;
     std::vector<qbitsize> operand;
   };
   class QgateQMUX : public Qgate { // quantum multiplexer
   public:
     QgateQMUX(){}
     QgateQMUX( Qcircuit * qc,
-              const std::vector<UnitaryMat> & Us,
+              const std::vector<const UnitaryMat *> & Us,
               const std::vector<qbitsize> & controller,
               const std::vector<qbitsize> & operand);
     void act();
   private:
-    std::vector<UnitaryMat> Us;
+    std::vector<const UnitaryMat *> Us;
     std::vector<qbitsize> controller;
     std::vector<qbitsize> operand;
   };

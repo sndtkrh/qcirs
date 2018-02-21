@@ -3,12 +3,12 @@
 #include "qcircuit.hpp"
 
 Qcircuit::QgateU::QgateU( Qcircuit * qc,
-    const UnitaryMat & U,
+    const UnitaryMat * U,
     const std::vector<qbitsize> & operand )
     : U(U), operand(operand) {
   set_qc(qc);
   std::size_t matsize = ( 1 << operand.size() );
-  assert( matsize == U.size() );
+  assert( matsize == U->size() );
   for(qbitsize q_idx : operand ){
     assert( q_idx < get_qc().get_qbit_n() );
   }
@@ -22,7 +22,7 @@ void Qcircuit::QgateU::act(){
     std::size_t e = bitsubset(s, operand);
     Vec v( 1 << operand.size(), 0 );
     v[e] = 1;
-    v = U * v;
+    v = (*U) * v;
     for(std::size_t subt = 0; subt < (1 << operand.size()); subt++){
       std::size_t t = bitsubset_set(s, subt, operand);
       newstate[t] += coeff * v[subt];

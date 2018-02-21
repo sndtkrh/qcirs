@@ -29,20 +29,4 @@ const Vec v_zero = {1, 0};
 const Vec v_one = {0, 1};
 const Vec v_plus = {1/sqrt2, 1/sqrt2};
 const Vec v_minus = {1/sqrt2, -1/sqrt2};
-
-// f : {0,1}^n -> {0,1} |-> Uf : unitary transformation
-UnitaryMat get_U(std::function<bool(std::size_t)> f, qbitsize n){
-  std::size_t u_size = (1 << (n + 1));
-  std::vector<Vec> A(u_size, Vec(u_size,0));
-  for(std::size_t i = 0; i < (1 << n); i++){
-    if( f(i) ){
-      A[i * 2][i * 2]     = 0; A[i * 2][i * 2 + 1]     = 1;
-      A[i * 2 + 1][i * 2] = 1; A[i * 2 + 1][i * 2 + 1] = 0;
-    }else{
-      A[i * 2][i * 2]     = 1; A[i * 2][i * 2 + 1]     = 0;
-      A[i * 2 + 1][i * 2] = 0; A[i * 2 + 1][i * 2 + 1] = 1;
-    }
-  }
-  return UnitaryMat(A);
-}
 #endif
