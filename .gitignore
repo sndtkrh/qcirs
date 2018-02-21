@@ -4,6 +4,7 @@
 
 qcirs
 
+build
 Makefile
 CMakefiles
 *.cmake
