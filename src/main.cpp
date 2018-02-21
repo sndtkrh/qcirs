@@ -4,12 +4,19 @@
 
 using namespace std;
 
+void test_qft();
 void test_deutch_jozsa();
 void test_qmux();
 
 int main(){
-  test_deutch_jozsa();
+  test_qft();
+  //test_deutch_jozsa();
   //test_qmux();
+}
+void test_qft(){
+  MatrixGenerator mg;
+  UnitaryMat * p = mg.get_qft(3);
+  cout << to_string(*p) << endl;
 }
 void test_qmux(){
   Qcircuit qc(2);

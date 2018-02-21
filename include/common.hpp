@@ -1,6 +1,6 @@
 #ifndef COMMON
 #define COMMON
-#include <iostream>
+#include <cmath>
 #include <cassert>
 #include <complex>
 #include <vector>

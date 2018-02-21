@@ -1,7 +1,7 @@
 # QCirS
 ## Overview
 QCirS is a quantum circuit simulator.
-## Requirement
+## Requirements
 - C++ compiler compatible with C++14 or later
   - g++ 6.4 is recomended.
 - CMake 2.8 or later
