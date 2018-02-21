@@ -78,6 +78,7 @@ private:
   Qstate state;
   class Qgate{
   public:
+    virtual ~Qgate(){}
     void set_qc(Qcircuit * qc_){
       qc = qc_;
     }

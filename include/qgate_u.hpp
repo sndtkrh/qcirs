@@ -7,7 +7,7 @@ Qcircuit::QgateU::QgateU( Qcircuit * qc,
     const std::vector<qbitsize> & operand )
     : U(U), operand(operand) {
   set_qc(qc);
-  long long matsize = ( 1 << operand.size() );
+  std::size_t matsize = ( 1 << operand.size() );
   assert( matsize == U.size() );
   for(qbitsize q_idx : operand ){
     assert( q_idx < get_qc().get_qbit_n() );

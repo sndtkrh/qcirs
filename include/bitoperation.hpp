@@ -16,14 +16,14 @@ void bitsetat(S & a, S b, qbitsize idx){
 
 S bitsubset(S a, const std::vector<qbitsize> & mask){
   S b = 0;
-  for(int i = 0; i < mask.size(); i++){
+  for(std::size_t i = 0; i < mask.size(); i++){
     b += bitat(a, mask[i]) << i;
   }
   return b;
 }
 
 S bitsubset_set(S a, S b, const std::vector<qbitsize> & mask){
-  for(int i = 0; i < mask.size(); i++){
+  for(std::size_t i = 0; i < mask.size(); i++){
     bitsetat(a, (b >> i) & 1, mask[i]);
   }
   return a;

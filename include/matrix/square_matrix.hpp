@@ -9,7 +9,7 @@ public:
     w = m[0].size();
     assert( h == w );
     N = h;
-    for(int i = 0; i < N; i++){
+    for(std::size_t i = 0; i < N; i++){
       assert(m[i].size() == w);
     }
     A = m;

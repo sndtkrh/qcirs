@@ -1,5 +1,5 @@
 #include "common.hpp"
-#include "Qcircuit.hpp"
+#include "qcircuit.hpp"
 #include "matrices.hpp"
 
 void qparallel(Qcircuit & qc, std::function<bool(std::size_t)> f){

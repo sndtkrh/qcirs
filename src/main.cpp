@@ -30,7 +30,7 @@ void test_qmux(){
   cout << state_to_string(qc.get_state(), 2) << endl;
 }
 void test_deutch_jozsa(){
-  function<bool(size_t)> f_const = [](size_t a){ return true; };
+  function<bool(size_t)> f_const = [](size_t){ return true; };
   function<bool(size_t)> f_balanced = [](size_t a){ return (a % 2 == 0); };
   Qcircuit qc(2 + 1);
   deutsch_jozsa(qc, f_const);

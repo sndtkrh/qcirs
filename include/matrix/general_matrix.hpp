@@ -31,9 +31,9 @@ public:
   Mat operator * (const Mat & B) const {
     std::vector<Vec> ab( h, Vec(B.cols(), 0));
     assert( w == B.rows() );
-    for(int i = 0; i < h; i++){
-      for(int j = 0; j < B.cols(); j++){
-        for(int k = 0; k < w; k++){
+    for(std::size_t i = 0; i < h; i++){
+      for(std::size_t j = 0; j < B.cols(); j++){
+        for(std::size_t k = 0; k < w; k++){
 	        ab[i][j] += A[i][k] * B.at(k, j);
 	      }
       }
@@ -44,8 +44,8 @@ public:
   Vec operator * (const Vec & v) const {
     Vec u(h, 0);
     assert( w == v.size() );
-    for(int i = 0; i < h; i++){
-      for(int j = 0; j < w; j++){
+    for(std::size_t i = 0; i < h; i++){
+      for(std::size_t j = 0; j < w; j++){
 	      u[i] += A[i][j] * v[j];
       }
     }
@@ -53,8 +53,8 @@ public:
   }
   Mat adj() const {
     std::vector<Vec> adjA(w, Vec(h));
-    for(int i = 0; i < h; i++){
-      for(int j = 0; j < w; j++){
+    for(std::size_t i = 0; i < h; i++){
+      for(std::size_t j = 0; j < w; j++){
         adjA[j][i] = std::conj( A[i][j] );
       }
     }
@@ -62,8 +62,8 @@ public:
   }
   bool is_I() const {
     if( h == w ){
-      for(int i = 0; i < h; i++){
-        for(int j = 0; j < w; j++){
+      for(std::size_t i = 0; i < h; i++){
+        for(std::size_t j = 0; j < w; j++){
           if( abs( A[i][j] - ( (i==j) ? 1.0 : 0 ) ) > eps ){
             return false;
           }
@@ -81,7 +81,7 @@ protected:
 
 std::string to_string(const Mat & A) {
   std::string s = "";
-  for(int i = 0; i < A.cols(); i++){
+  for(std::size_t i = 0; i < A.cols(); i++){
     s += to_string( A.row_at(i) );
     s += (i == A.cols() - 1) ? "" : "\n";
   }
