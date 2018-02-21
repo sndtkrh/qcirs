@@ -8,6 +8,15 @@ public:
       delete M;
     }
   }
+  UnitaryMat * get_I(std::size_t s){
+    std::vector<Vec> A(s, Vec(s, 0));
+    for(std::size_t i = 0; i < s; i++){
+      A[i][i] = 1;
+    }
+    UnitaryMat * p = new UnitaryMat(A);
+    Ms.push_back(p);
+    return 0;
+  }
   // unitary matrix for quantum Fourier transformation
   UnitaryMat * get_qft(qbitsize qbit_n){
     const double pi = std::acos(-1);
