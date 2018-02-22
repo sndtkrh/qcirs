@@ -9,16 +9,22 @@ public:
     }
   }
   UnitaryMat * get_I(std::size_t s){
+    if( memo_I.find(s) != memo_I.end() ){
+      return memo_I[s];
+    }
     std::vector<Vec> A(s, Vec(s, 0));
     for(std::size_t i = 0; i < s; i++){
       A[i][i] = 1;
     }
-    UnitaryMat * p = new UnitaryMat(A);
-    Ms.push_back(p);
-    return 0;
+    memo_I[s] = new UnitaryMat(A);
+    Ms.push_back( memo_I[s] );
+    return memo_I[s];
   }
   // unitary matrix for quantum Fourier transformation
   UnitaryMat * get_qft(qbitsize qbit_n){
+    if( memo_qft.find(qbit_n) != memo_qft.end() ){
+      return memo_qft[qbit_n];
+    }
     const double pi = std::acos(-1);
     std::size_t s = (1 << qbit_n);
     std::vector<Vec> A(s, Vec(s, 0));
@@ -33,11 +39,13 @@ public:
         A[i][j] = 1.0 / sqrt(s) * powomega[(i * j) % s];
       }
     }
-    UnitaryMat * p = new UnitaryMat(A);
-    Ms.push_back(p);
-    return p;
+    memo_qft[qbit_n] = new UnitaryMat(A);
+    Ms.push_back( memo_qft[qbit_n] );
+    return memo_qft[qbit_n];
   }
 private:
+  std::map<std::size_t, UnitaryMat *> memo_I;
+  std::map<qbitsize, UnitaryMat *> memo_qft;
   std::vector<Mat *> Ms;
 };
 #endif

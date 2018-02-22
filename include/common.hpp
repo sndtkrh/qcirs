@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <string>
 #include <set>
+#include <map>
 #include <functional>
 #include "matrix/matrix.hpp"
 typedef unsigned char qbitsize;
