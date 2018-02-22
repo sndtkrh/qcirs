@@ -1,6 +1,6 @@
 #ifndef QGATEU
 #define QGATEU
-#include "qcircuit.hpp"
+#include "qgatecommon.hpp"
 
 Qcircuit::QgateU::QgateU( Qcircuit * qc,
     const UnitaryMat * U,

@@ -41,7 +41,7 @@ public:
     qgate.push_back( new QgateQMUX(this, Us, controller, {operand}) );
   }
   // customized quamtum gate
-  void add_qgate_custom(std::function<Qstate(Qstate)> & f){
+  void add_qgate_custom(std::function<Qstate(Qstate &)> & f){
     qgate.push_back( new QgateCustom(this, f) );
   }
   qbitsize get_qbit_n() const {
@@ -137,10 +137,10 @@ private:
   class QgateCustom : public Qgate {
   public:
     QgateCustom(){}
-    QgateCustom( Qcircuit * qc, std::function<Qstate(Qstate)> f );
+    QgateCustom( Qcircuit * qc, std::function<Qstate(Qstate &)> & f );
     void act();
   private:
-    std::function<Qstate(Qstate)> f;
+    std::function<Qstate(Qstate &)> f;
   };
 };
 
@@ -160,4 +160,5 @@ bool no_duplication( const std::vector<qbitsize> & v ){
   }
   return v.size() == S.size();
 }
+
 #endif
