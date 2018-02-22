@@ -40,6 +40,10 @@ public:
     }
     qgate.push_back( new QgateQMUX(this, Us, controller, {operand}) );
   }
+  // customized quamtum gate
+  void add_qgate_custom(std::function<Qstate(Qstate)> & f){
+    qgate.push_back( new QgateCustom(this, f) );
+  }
   qbitsize get_qbit_n() const {
     return qbit_n;
   }
@@ -129,6 +133,14 @@ private:
     std::vector<const UnitaryMat *> Us;
     std::vector<qbitsize> controller;
     std::vector<qbitsize> operand;
+  };
+  class QgateCustom : public Qgate {
+  public:
+    QgateCustom(){}
+    QgateCustom( Qcircuit * qc, std::function<Qstate(Qstate)> f );
+    void act();
+  private:
+    std::function<Qstate(Qstate)> f;
   };
 };
 
