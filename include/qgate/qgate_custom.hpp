@@ -1,6 +1,5 @@
 #ifndef QGATECUSTOM
 #define QGATECUSTOM
-#include "qgatecommon.hpp"
 
 Qcircuit::QgateCustom::QgateCustom( Qcircuit * qc, std::function<Qstate(Qstate &)> & f_ ){
   set_qc(qc);

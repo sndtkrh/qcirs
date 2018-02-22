@@ -1,6 +1,5 @@
 #ifndef QGATEQMUX
 #define QGATEQMUX
-#include "qgatecommon.hpp"
 
 Qcircuit::QgateQMUX::QgateQMUX( Qcircuit * qc,
     const std::vector<const UnitaryMat *> & Us,

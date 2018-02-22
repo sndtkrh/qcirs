@@ -161,4 +161,5 @@ bool no_duplication( const std::vector<qbitsize> & v ){
   return v.size() == S.size();
 }
 
+#include "qgate/qgate.hpp"
 #endif
