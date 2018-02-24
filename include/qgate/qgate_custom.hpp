@@ -1,7 +1,7 @@
 #ifndef QGATECUSTOM
 #define QGATECUSTOM
 
-Qcircuit::QgateCustom::QgateCustom( Qcircuit * qc, std::function<Qstate(Qstate &)> & f_ ){
+Qcircuit::QgateCustom::QgateCustom( Qcircuit * qc, const std::function<Qstate(Qstate &)> & f_ ){
   set_qc(qc);
   f = f_;
 }

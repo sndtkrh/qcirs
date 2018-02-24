@@ -40,10 +40,16 @@ public:
     }
     qgate.push_back( new QgateQMUX(this, Us, controller, {operand}) );
   }
-  // customized quamtum gate
-  void add_qgate_custom(std::function<Qstate(Qstate &)> & f){
+
+  /*
+  * customized quamtum gate
+  * Note that this method does not ensure that f is an unitary transformation.
+  * You have to prove it.
+  */
+  void add_qgate_custom(const std::function<Qstate(Qstate &)> & f){
     qgate.push_back( new QgateCustom(this, f) );
   }
+
   qbitsize get_qbit_n() const {
     return qbit_n;
   }
@@ -137,7 +143,7 @@ private:
   class QgateCustom : public Qgate {
   public:
     QgateCustom(){}
-    QgateCustom( Qcircuit * qc, std::function<Qstate(Qstate &)> & f );
+    QgateCustom( Qcircuit * qc, const std::function<Qstate(Qstate &)> & f );
     void act();
   private:
     std::function<Qstate(Qstate &)> f;
