@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 2.8)
-project(qcirs)
 
 include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++14" COMPILER_SUPPORTS_CXX14)

@@ -1,8 +1,4 @@
-#ifndef BITOP
-#define BITOP
-#include "common.hpp"
-#include <vector>
-typedef std::size_t S;
+#include "qc/bitoperation.hpp"
 
 S bitat(S a, qbitsize idx){
   return 1 & (a >> idx);
@@ -36,4 +32,3 @@ std::string bit_to_string(S a, qbitsize qbit_n){
   }
   return s;
 }
-#endif

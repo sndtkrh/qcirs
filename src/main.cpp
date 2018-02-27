@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "qcore.hpp"
+#include "qc/qcore.hpp"
 
 using namespace std;
 
