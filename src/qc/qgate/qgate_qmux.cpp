@@ -1,6 +1,6 @@
-#ifndef QGATEQMUX
-#define QGATEQMUX
+#include "qc/qcircuit.hpp"
 
+Qcircuit::QgateQMUX::QgateQMUX(){}
 Qcircuit::QgateQMUX::QgateQMUX( Qcircuit * qc,
     const std::vector<const UnitaryMat *> & Us,
     const std::vector<qbitsize> & controller,
@@ -31,4 +31,3 @@ void Qcircuit::QgateQMUX::act(){
   }
   get_qc().state = newstate;
 }
-#endif

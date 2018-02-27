@@ -1,2 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
-add_executable(qcirs main.cpp)
+project(main)
+
+add_subdirectory(qc)
+
+add_executable(main main.cpp)
+target_link_libraries(main qcirs)

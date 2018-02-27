@@ -1,7 +1,4 @@
-#ifndef VEC
-#define VEC
-#include <string>
-typedef std::vector<std::complex<double>> Vec;
+#include "qc/matrix/vec.hpp"
 
 std::string to_string( const std::complex<double> & z ){
   return std::to_string( std::real(z) ) + "+i" + std::to_string( std::imag(z) );
@@ -15,4 +12,3 @@ std::string to_string( const Vec & v ){
   }
   return s;
 }
-#endif

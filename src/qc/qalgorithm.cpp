@@ -1,6 +1,4 @@
-#include "common.hpp"
-#include "qcircuit.hpp"
-#include "matrices.hpp"
+#include "qc/qalgorithm.hpp"
 
 void qparallel(Qcircuit & qc, const std::function<bool(std::size_t)> & f){
   qbitsize qbit_n = qc.get_qbit_n();

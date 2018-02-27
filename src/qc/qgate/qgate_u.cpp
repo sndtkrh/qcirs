@@ -1,6 +1,6 @@
-#ifndef QGATEU
-#define QGATEU
+#include "qc/qcircuit.hpp"
 
+Qcircuit::QgateU::QgateU(){}
 Qcircuit::QgateU::QgateU( Qcircuit * qc,
     const UnitaryMat * U,
     const std::vector<qbitsize> & operand )
@@ -29,4 +29,3 @@ void Qcircuit::QgateU::act(){
   }
   get_qc().state = newstate;
 }
-#endif
