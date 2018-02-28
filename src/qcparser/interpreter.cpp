@@ -10,6 +10,10 @@ namespace qcparser {
 
   env::env(){
     um["H"] = &H;
+    um["X"] = &PauliX;
+    um["Y"] = &PauliY;
+    um["Z"] = &PauliZ;
+    um["CNOT"] = &CNOT;
   }
   env::~env(){
     for(auto & q : qc){
