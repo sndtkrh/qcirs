@@ -94,7 +94,8 @@ std::string state_to_string(Vec a, qbitsize qbit_n){
   assert( a.size() == (1 << qbit_n) );
   std::string s = "";
   for(std::size_t i = 0; i < a.size(); i++){
-    s += to_string(a[i]) + "|" + bit_to_string(i, qbit_n) + ">\n";
+    s += to_string(a[i]) + "|" + bit_to_string(i, qbit_n) + ">"
+          + ((i == a.size() -1) ? "" : "\n");
   }
   return s;
 }

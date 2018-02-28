@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include "qc/qcore.hpp"
 #include "qcparser/parser.hpp"
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii;
@@ -14,7 +15,7 @@ namespace qcparser {
     if( success && first == last ){
       return result;
     }else{
-      throw "invalid syntax";
+      throw std::string("invalid syntax");
     }
   }
 }

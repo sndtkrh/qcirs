@@ -5,12 +5,12 @@ namespace qcparser{
 
   struct define {
     std::string qc_indicator;
-    int qbit_n;
+    qbitsize qbit_n;
   };
 
   struct measure {
     std::string qc_indicator;
-    std::vector<int> qbit_indicator;
+    std::vector<qbitsize> qbit_indicator;
   };
 
   struct print {
@@ -23,12 +23,12 @@ namespace qcparser{
 BOOST_FUSION_ADAPT_STRUCT(
   qcparser::define,
   (std::string, qc_indicator)
-  (int, qbit_n)
+  (qbitsize, qbit_n)
 )
 BOOST_FUSION_ADAPT_STRUCT(
   qcparser::measure,
   (std::string, qc_indicator)
-  (std::vector<int>, qbit_indicator)
+  (std::vector<qbitsize>, qbit_indicator)
 )
 BOOST_FUSION_ADAPT_STRUCT(
   qcparser::print,
