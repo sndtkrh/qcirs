@@ -7,4 +7,7 @@
 #include "command.hpp"
 #include "program.hpp"
 #include "grammar.hpp"
+namespace qcparser{
+  program parse(std::string);
+}
 #endif

@@ -3,5 +3,5 @@ project(main)
 
 add_subdirectory(qc)
 
-add_executable(main main.cpp parsetest.cpp)
+add_executable(main main.cpp parser.cpp parsetest.cpp)
 # target_link_libraries(main qcirs)
