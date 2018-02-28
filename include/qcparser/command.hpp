@@ -17,7 +17,18 @@ namespace qcparser{
     std::string qc_indicator;
   };
 
-  typedef boost::variant<define, measure, print> command;
+  struct qgate;
+  struct add {
+    std::string qc_indicator;
+    std::vector<qgate> qgates;
+  };
+
+  struct qgate{
+    std::string unitary_mat_indicator;
+    std::vector<qbitsize> qbit_indicator;
+  };
+
+  typedef boost::variant<define, measure, print, add> command;
 }
 
 BOOST_FUSION_ADAPT_STRUCT(
@@ -33,5 +44,15 @@ BOOST_FUSION_ADAPT_STRUCT(
 BOOST_FUSION_ADAPT_STRUCT(
   qcparser::print,
   (std::string, qc_indicator)
+)
+BOOST_FUSION_ADAPT_STRUCT(
+  qcparser::qgate,
+  (std::string, unitary_mat_indicator)
+  (std::vector<qbitsize>, qbit_indicator)
+)
+BOOST_FUSION_ADAPT_STRUCT(
+  qcparser::add,
+  (std::string, qc_indicator)
+  (std::vector<qcparser::qgate>, qgates)
 )
 #endif

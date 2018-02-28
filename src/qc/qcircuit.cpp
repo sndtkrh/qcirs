@@ -33,6 +33,10 @@ void Qcircuit::add_qgate_qmux(const std::function<bool(std::size_t)> & f,
   qgate.push_back( new QgateQMUX(this, Us, controller, {operand}) );
 }
 
+void Qcircuit::pop_back_qgate(){
+  qgate.pop_back();
+}
+
 /*
 * customized quamtum gate
 * Note that this method does not ensure that f is an unitary transformation.

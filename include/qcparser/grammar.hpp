@@ -8,13 +8,16 @@
 
 namespace qcparser {
   template <typename Iterator>
-  struct grammar : boost::spirit::qi::grammar<Iterator, qcparser::program(), boost::spirit::ascii::space_type> {
+  struct grammar : boost::spirit::qi::grammar<Iterator, program(), boost::spirit::ascii::space_type> {
     grammar();
-    boost::spirit::qi::rule<Iterator, qcparser::program(), boost::spirit::ascii::space_type> program;
-    boost::spirit::qi::rule<Iterator, qcparser::command(), boost::spirit::ascii::space_type> command;
-    boost::spirit::qi::rule<Iterator, qcparser::define(), boost::spirit::ascii::space_type> c_define;
-    boost::spirit::qi::rule<Iterator, qcparser::measure(), boost::spirit::ascii::space_type> c_measure;
-    boost::spirit::qi::rule<Iterator, qcparser::print(), boost::spirit::ascii::space_type> c_print;
+    boost::spirit::qi::rule<Iterator, program(), boost::spirit::ascii::space_type> program;
+    boost::spirit::qi::rule<Iterator, command(), boost::spirit::ascii::space_type> command;
+    boost::spirit::qi::rule<Iterator, define(), boost::spirit::ascii::space_type> c_define;
+    boost::spirit::qi::rule<Iterator, measure(), boost::spirit::ascii::space_type> c_measure;
+    boost::spirit::qi::rule<Iterator, print(), boost::spirit::ascii::space_type> c_print;
+    boost::spirit::qi::rule<Iterator, add(), boost::spirit::ascii::space_type> c_add;
+    boost::spirit::qi::rule<Iterator, qgate(), boost::spirit::ascii::space_type> qgate;
+    boost::spirit::qi::rule<Iterator, std::string(), boost::spirit::ascii::space_type> qgate_name;
     boost::spirit::qi::rule<Iterator, std::string(), boost::spirit::ascii::space_type> qc_indicator;
     boost::spirit::qi::rule<Iterator, std::string(), boost::spirit::ascii::space_type> qc_name;
     boost::spirit::qi::rule<Iterator, std::vector<qbitsize>(), boost::spirit::ascii::space_type> qbit_indicator;
@@ -28,7 +31,7 @@ namespace qcparser {
     namespace ascii = boost::spirit::ascii;
 
     program %= *(command | comment);
-    command %= (c_define | c_measure | c_print);
+    command %= (c_define | c_measure | c_print | c_add);
 
     c_define
       %= qi::lit("define")
@@ -41,6 +44,16 @@ namespace qcparser {
     c_print
       %= qi::lit("print")
         >> qc_indicator;
+    c_add
+      %= qi::lit("add")
+        >> qc_indicator
+        >> qgate % qi::lit("(x)");
+
+    qgate
+      %= qgate_name
+        >> qbit_indicator;
+    qgate_name
+      %= qi::lexeme[+(qi::alpha)];
 
     qc_indicator
       %= qi::lit("@")
