@@ -3,4 +3,4 @@ project(qcparser)
 
 add_library(qcparser STATIC
   parser.cpp interpreter.cpp)
-target_link_libraries(qcparser qcirs)
+target_link_libraries(qcparser qc)
