@@ -18,6 +18,8 @@ public:
       const std::vector<qbitsize> & controller,
       qbitsize operand);
 
+  void pop_back_qgate();
+
   /*
   * customized quamtum gate
   * Note that this method does not ensure that f is an unitary transformation.

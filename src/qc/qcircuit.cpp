@@ -33,6 +33,10 @@ void Qcircuit::add_qgate_qmux(const std::function<bool(std::size_t)> & f,
   qgate.push_back( new QgateQMUX(this, Us, controller, {operand}) );
 }
 
+void Qcircuit::pop_back_qgate(){
+  qgate.pop_back();
+}
+
 /*
 * customized quamtum gate
 * Note that this method does not ensure that f is an unitary transformation.
@@ -94,7 +98,8 @@ std::string state_to_string(Vec a, qbitsize qbit_n){
   assert( a.size() == (1 << qbit_n) );
   std::string s = "";
   for(std::size_t i = 0; i < a.size(); i++){
-    s += to_string(a[i]) + "|" + bit_to_string(i, qbit_n) + ">\n";
+    s += to_string(a[i]) + "|" + bit_to_string(i, qbit_n) + ">"
+          + ((i == a.size() -1) ? "" : "\n");
   }
   return s;
 }
