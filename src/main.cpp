@@ -5,7 +5,22 @@
 #include "qcparser/parser.hpp"
 #include "qcparser/interpreter.hpp"
 
+void print_logo(){
+  const std::string logo ="\
+  _____    _____   _         ____     \n\
+ / ___ \\  /  ___\\ ( )  _  _ (  __\\ \n\
+( (_,_) )(  (____ | | | |'/__\\ \\    \n\
+ \\___  /  \\_____/ |_| |_|  \\____)  \n\
+     \\_\\                            \n\
+";
+std::cout << logo << std::flush;
+std::cout << "QCirS -- Quantum Circuit Simulator" << std::endl;
+std::cout << "==================================" << std::endl;
+std::cout << std::endl;
+}
+
 int main(){
+  print_logo();
   qcparser::env e;
   std::string source;
   std::cout << ">> " << std::flush;
