@@ -20,7 +20,7 @@ namespace qcparser {
     boost::spirit::qi::rule<Iterator, std::string(), boost::spirit::ascii::space_type> qgate_name;
     boost::spirit::qi::rule<Iterator, std::string(), boost::spirit::ascii::space_type> qc_indicator;
     boost::spirit::qi::rule<Iterator, std::string(), boost::spirit::ascii::space_type> qc_name;
-    boost::spirit::qi::rule<Iterator, std::vector<qbitsize>(), boost::spirit::ascii::space_type> qbit_indicator;
+    boost::spirit::qi::rule<Iterator, std::vector<qc::qbitsize>(), boost::spirit::ascii::space_type> qbit_indicator;
     boost::spirit::qi::rule<Iterator, std::string(), boost::spirit::ascii::space_type> comment;
     boost::spirit::qi::rule<Iterator, std::string(), boost::spirit::ascii::space_type> comment_text;
   };

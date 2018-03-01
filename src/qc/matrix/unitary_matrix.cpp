@@ -1,6 +1,6 @@
-#include "qc/matrix/unitary_matrix.hpp"
-#include <cassert>
+#include "qc/matrix/matrix.hpp"
 
+namespace qc {
 UnitaryMat::UnitaryMat(){}
 UnitaryMat::UnitaryMat(std::vector<std::vector<std::complex<double>>> m){
   h = m.size();
@@ -13,4 +13,5 @@ UnitaryMat::UnitaryMat(std::vector<std::vector<std::complex<double>>> m){
   A = m;
   Mat adjA = adj();
   assert( (operator*(adjA)).is_I() );
+}
 }

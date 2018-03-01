@@ -1,5 +1,6 @@
-#include "qc/matrix/general_matrix.hpp"
-#include <cassert>
+#include "qc/matrix/matrix.hpp"
+
+namespace qc{
 
 Mat::Mat(){}
 Mat::Mat(std::vector<std::vector<std::complex<double>>> B){
@@ -79,4 +80,6 @@ std::string to_string(const Mat & A) {
     s += (i == A.cols() - 1) ? "" : "\n";
   }
   return s;
+}
+
 }

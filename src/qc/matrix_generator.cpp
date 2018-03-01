@@ -1,5 +1,7 @@
+#include "qc/common.hpp"
 #include "qc/matrix_generator.hpp"
 
+namespace qc {
 MatrixGenerator::~MatrixGenerator(){
   for(Mat * M : Ms){
     delete M;
@@ -39,4 +41,5 @@ UnitaryMat * MatrixGenerator::get_qft(qbitsize qbit_n){
   memo_qft[qbit_n] = new UnitaryMat(A);
   Ms.push_back( memo_qft[qbit_n] );
   return memo_qft[qbit_n];
+}
 }

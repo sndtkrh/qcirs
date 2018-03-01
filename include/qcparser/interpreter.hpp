@@ -4,8 +4,8 @@ namespace qcparser {
   struct env{
     env();
     ~env();
-    std::map<std::string, Qcircuit *> qc;
-    std::map<std::string, const UnitaryMat *> um;
+    std::map<std::string, qc::Qcircuit *> qc;
+    std::map<std::string, const qc::UnitaryMat *> um;
   };
 
   struct run_command : boost::static_visitor<void> {

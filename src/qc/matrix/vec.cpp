@@ -1,5 +1,6 @@
-#include "qc/matrix/vec.hpp"
+#include "qc/matrix/matrix.hpp"
 
+namespace qc {
 std::string to_string( const std::complex<double> & z ){
   return std::to_string( std::real(z) ) + "+i" + std::to_string( std::imag(z) );
 }
@@ -11,4 +12,5 @@ std::string to_string( const Vec & v ){
       s += " ";
   }
   return s;
+}
 }

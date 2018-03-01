@@ -1,8 +1,7 @@
 #ifndef QCIRCUIT
 #define QCIRCUIT
-#include "common.hpp"
-#include "bitoperation.hpp"
-#include "matrices.hpp"
+namespace qc {
+
 typedef std::vector<comp> Qstate;
 
 class Qcircuit {
@@ -86,4 +85,5 @@ private:
 std::string state_to_string(Vec a, qbitsize qbit_n);
 bool no_duplication( const std::vector<qbitsize> & v );
 
+}
 #endif

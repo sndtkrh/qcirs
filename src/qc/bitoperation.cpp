@@ -1,4 +1,6 @@
+#include "qc/common.hpp"
 #include "qc/bitoperation.hpp"
+namespace qc {
 
 S bitat(S a, qbitsize idx){
   return 1 & (a >> idx);
@@ -31,4 +33,6 @@ std::string bit_to_string(S a, qbitsize qbit_n){
     s += std::to_string(bitat(a, i));
   }
   return s;
+}
+
 }

@@ -9,11 +9,11 @@
 namespace qcparser {
 
   env::env(){
-    um["H"] = &H;
-    um["X"] = &PauliX;
-    um["Y"] = &PauliY;
-    um["Z"] = &PauliZ;
-    um["CNOT"] = &CNOT;
+    um["H"] = &qc::H;
+    um["X"] = &qc::PauliX;
+    um["Y"] = &qc::PauliY;
+    um["Z"] = &qc::PauliZ;
+    um["CNOT"] = &qc::CNOT;
   }
   env::~env(){
     for(auto & q : qc){
@@ -24,18 +24,18 @@ namespace qcparser {
   // interpret command
   run_command::run_command(env * e_) : e_(e_) { }
   void run_command::operator()(define & c) const {
-    e_->qc[c.qc_indicator] = new Qcircuit(c.qbit_n);
+    e_->qc[c.qc_indicator] = new qc::Qcircuit(c.qbit_n);
     std::cout << "defined quantum circuit : @" << c.qc_indicator << std::endl;
   }
   void run_command::operator()(measure & c) const {
     if( exist_qc(c.qc_indicator) ){
-      Qcircuit & qc = *(e_->qc[c.qc_indicator]);
+      qc::Qcircuit & qc = *(e_->qc[c.qc_indicator]);
       std::vector<double> result = qc.measure(c.qbit_indicator);
       std::size_t i = 0;
       for(double p : result ){
         std::cout
           << "Probability["
-          << bit_to_string(i, c.qbit_indicator.size())
+          << qc::bit_to_string(i, c.qbit_indicator.size())
           << "] = " << p << std::endl;
         i++;
       }
@@ -43,13 +43,13 @@ namespace qcparser {
   }
   void run_command::operator()(print & c) const {
     if( exist_qc(c.qc_indicator) ){
-      Qcircuit & qc = *(e_->qc[c.qc_indicator]);
-      std::cout << state_to_string(qc.get_state(), qc.get_qbit_n()) << std::endl;
+      qc::Qcircuit & qc = *(e_->qc[c.qc_indicator]);
+      std::cout << qc::state_to_string(qc.get_state(), qc.get_qbit_n()) << std::endl;
     }
   }
   void run_command::operator()(add & c) const {
     if( exist_qc(c.qc_indicator) ){
-      Qcircuit & qc = *(e_->qc[c.qc_indicator]);
+      qc::Qcircuit & qc = *(e_->qc[c.qc_indicator]);
       int um_n = c.qgates.size();
       for(qgate & qg : c.qgates){
         if( ! exist_um(qg.unitary_mat_indicator) ){
@@ -60,7 +60,7 @@ namespace qcparser {
         qc.add_qgate_u(e_->um[qg.unitary_mat_indicator], qg.qbit_indicator);
       }
       qc.run();
-      for(qbitsize i = 0; i < um_n; i++){
+      for(qc::qbitsize i = 0; i < um_n; i++){
         qc.pop_back_qgate();
       }
       std::cout << "added" << std::endl;

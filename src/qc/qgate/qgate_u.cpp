@@ -1,5 +1,8 @@
+#include "qc/common.hpp"
+#include "qc/bitoperation.hpp"
 #include "qc/qcircuit.hpp"
 
+namespace qc {
 Qcircuit::QgateU::QgateU(){}
 Qcircuit::QgateU::QgateU( Qcircuit * qc,
     const UnitaryMat * U,
@@ -28,4 +31,5 @@ void Qcircuit::QgateU::act(){
     }
   }
   get_qc().state = newstate;
+}
 }

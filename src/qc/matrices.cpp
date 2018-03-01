@@ -1,5 +1,6 @@
+#include "qc/common.hpp"
 #include "qc/matrices.hpp"
-
+namespace qc {
 const UnitaryMat I_2({
   {1,0},
   {0,1} });
@@ -26,3 +27,4 @@ const Vec v_zero = {1, 0};
 const Vec v_one = {0, 1};
 const Vec v_plus = {1/sqrt2, 1/sqrt2};
 const Vec v_minus = {1/sqrt2, -1/sqrt2};
+}

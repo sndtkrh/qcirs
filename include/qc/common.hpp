@@ -10,6 +10,8 @@
 #include <map>
 #include <functional>
 #include "matrix/matrix.hpp"
-typedef unsigned char qbitsize;
-typedef std::complex<double> comp;
+namespace qc {
+  typedef unsigned char qbitsize;
+  typedef std::complex<double> comp;
+}
 #endif

@@ -1,5 +1,8 @@
+#include "qc/common.hpp"
+#include "qc/bitoperation.hpp"
 #include "qc/qcircuit.hpp"
 
+namespace qc {
 Qcircuit::QgateQMUX::QgateQMUX(){}
 Qcircuit::QgateQMUX::QgateQMUX( Qcircuit * qc,
     const std::vector<const UnitaryMat *> & Us,
@@ -30,4 +33,5 @@ void Qcircuit::QgateQMUX::act(){
     }
   }
   get_qc().state = newstate;
+}
 }

@@ -1,6 +1,6 @@
-#include "qc/matrix/square_matrix.hpp"
-#include <cassert>
+#include "qc/matrix/matrix.hpp"
 
+namespace qc {
 SquareMat::SquareMat(){}
 SquareMat::SquareMat(std::vector<std::vector<std::complex<double>>> m){
   h = m.size();
@@ -14,4 +14,5 @@ SquareMat::SquareMat(std::vector<std::vector<std::complex<double>>> m){
 }
 std::size_t SquareMat::size() const {
   return N;
+}
 }

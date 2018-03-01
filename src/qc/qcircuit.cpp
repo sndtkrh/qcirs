@@ -1,4 +1,9 @@
+#include "qc/common.hpp"
+#include "qc/bitoperation.hpp"
+#include "qc/matrices.hpp"
 #include "qc/qcircuit.hpp"
+
+namespace qc {
 
 Qcircuit::Qcircuit( qbitsize qbit_n ) : qbit_n( qbit_n ) {
   state.resize( 1 << qbit_n, 0 );
@@ -110,4 +115,5 @@ bool no_duplication( const std::vector<qbitsize> & v ){
     S.insert( e );
   }
   return v.size() == S.size();
+}
 }

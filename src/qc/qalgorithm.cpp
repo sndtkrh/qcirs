@@ -1,5 +1,9 @@
+#include "qc/common.hpp"
+#include "qc/qcircuit.hpp"
+#include "qc/matrices.hpp"
 #include "qc/qalgorithm.hpp"
 
+namespace qc {
 void qparallel(Qcircuit & qc, const std::function<bool(std::size_t)> & f){
   qbitsize qbit_n = qc.get_qbit_n();
   std::vector<qbitsize> controller(qbit_n - 1);
@@ -122,4 +126,5 @@ void grover_search(Qcircuit & qc,
   for(std::size_t i = 0; i < k; i++){
     grover_rotation(qc, qbit_n - 1, qoracle);
   }
+}
 }
