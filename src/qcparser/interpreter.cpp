@@ -12,11 +12,13 @@ namespace qcparser {
     interactive = false;
     measure_way = random;
     measure_printpr = false;
+    um["I"] = &qc::I_2;
     um["H"] = &qc::H;
     um["X"] = &qc::PauliX;
     um["Y"] = &qc::PauliY;
     um["Z"] = &qc::PauliZ;
     um["CNOT"] = &qc::CNOT;
+    um["CCNOT"] = &qc::CCNOT;
   }
   env::~env(){
     for(auto & q : qc){
