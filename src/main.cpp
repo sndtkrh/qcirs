@@ -10,12 +10,12 @@ void interactive_mode();
 void file_mode(const std::string & filename);
 
 int main(int argc, char* argv[]){
-  if( argc == 0 ){
+  if( argc == 1 ){
     interactive_mode();
-  }else if( argc == 1 ){
+  }else if( argc == 2 ){
     std::string filename = argv[1];
-    file_mode();
-  }else if( argc != 0 ){
+    file_mode(filename);
+  }else{
     std::cout << "QCirS" << std::endl;
     std::cout << "USAGE : " << std::endl;
     std::cout << "    qcirs <input>      run <input>" << std::endl;
@@ -31,6 +31,7 @@ void file_mode(const std::string & filename){
     std::cout << "error : cannot open file " << filename << "." << std::endl;
     exit(1);
   }
+  std::string source;
   while(std::getline(fin, source)){
     qcparser::env e;
     std::string source;
