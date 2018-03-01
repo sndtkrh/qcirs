@@ -106,7 +106,7 @@ namespace qc {
     std::size_t k;
     for(std::size_t i = 0; i < pr.size(); i++){
       sum += pr[i];
-      if( sum <= r ){
+      if( sum >= r ){
         p = pr[i];
         k = i;
         break;
