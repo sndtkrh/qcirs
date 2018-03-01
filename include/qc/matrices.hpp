@@ -7,6 +7,7 @@ namespace qc {
   extern const UnitaryMat PauliZ;
   extern const UnitaryMat H;
   extern const UnitaryMat CNOT;
+  extern const UnitaryMat CCNOT;
 
   extern const Vec v_zero;
   extern const Vec v_one;
