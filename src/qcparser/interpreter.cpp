@@ -10,6 +10,8 @@ namespace qcparser {
 
   env::env(){
     interactive = false;
+    measure_way = random;
+    measure_printpr = false;
     um["H"] = &qc::H;
     um["X"] = &qc::PauliX;
     um["Y"] = &qc::PauliY;
@@ -24,6 +26,7 @@ namespace qcparser {
 
   // interpret command
   run_command::run_command(env * e_) : e_(e_) { }
+  // define @<qc_indicator> <qbit_n>
   void run_command::operator()(define & c) const {
     if( exist_qc(c.qc_indicator) ){
       throw "error : @" + c.qc_indicator + " is already defined.";
@@ -37,22 +40,31 @@ namespace qcparser {
       }
     }
   }
+  // measure @<qc_indicator> <qbit_indicator>
   void run_command::operator()(measure & c) const {
     if( exist_qc(c.qc_indicator) ){
       qc::Qcircuit & qc = *(e_->qc[c.qc_indicator]);
-      std::vector<double> result = qc.measure_change_state_deterministically(c.qbit_indicator);
-      std::size_t i = 0;
-      for(double p : result ){
-        std::cout
-          << "Probability["
-          << qc::bit_to_string(i, c.qbit_indicator.size())
-          << "] = " << p << std::endl;
-        i++;
+      std::vector<double> result;
+      if( e_->measure_way == deterministic ){
+        result = qc.measure_change_state_deterministically(c.qbit_indicator);
+      }else{ // e_->measure_way == random
+        result = qc.measure_change_state_randomly(c.qbit_indicator);
+      }
+      if( e_->measure_printpr ){
+        std::size_t i = 0;
+        for(double p : result ){
+          std::cout
+            << "Probability["
+            << qc::bit_to_string(i, c.qbit_indicator.size())
+            << "] = " << p << std::endl;
+          i++;
+        }
       }
     }else{
       throw "error : @" + c.qc_indicator + " is not defined.";
     }
   }
+  // print @<qc_indicator>
   void run_command::operator()(print & c) const {
     if( exist_qc(c.qc_indicator) ){
       qc::Qcircuit & qc = *(e_->qc[c.qc_indicator]);
@@ -61,6 +73,7 @@ namespace qcparser {
       throw "error : @" + c.qc_indicator + " is not defined.";
     }
   }
+  // add @<qc_indicator> <qgates>
   void run_command::operator()(add & c) const {
     if( exist_qc(c.qc_indicator) ){
       qc::Qcircuit & qc = *(e_->qc[c.qc_indicator]);

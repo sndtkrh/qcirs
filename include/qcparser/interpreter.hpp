@@ -1,12 +1,18 @@
 #ifndef INTERPRETER
 #define INTERPRETER
 namespace qcparser {
+  const bool deterministic = true;
+  const bool random = false;
+  
   struct env{
     env();
     ~env();
     std::map<std::string, qc::Qcircuit *> qc;
     std::map<std::string, const qc::UnitaryMat *> um;
     bool interactive;
+
+    bool measure_way; // deterministic or random
+    bool measure_printpr;
   };
 
   struct run_command : boost::static_visitor<void> {
