@@ -30,7 +30,7 @@ namespace qcparser {
   void run_command::operator()(measure & c) const {
     if( exist_qc(c.qc_indicator) ){
       qc::Qcircuit & qc = *(e_->qc[c.qc_indicator]);
-      std::vector<double> result = qc.measure(c.qbit_indicator);
+      std::vector<double> result = qc.measure_change_state_deterministically(c.qbit_indicator);
       std::size_t i = 0;
       for(double p : result ){
         std::cout

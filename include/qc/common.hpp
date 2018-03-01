@@ -8,6 +8,7 @@
 #include <string>
 #include <set>
 #include <map>
+#include <random>
 #include <functional>
 #include "matrix/matrix.hpp"
 namespace qc {
