@@ -21,7 +21,10 @@ std::cout << std::endl;
 
 int main(){
   print_logo();
+
   qcparser::env e;
+  e.interactive = true;
+
   std::string source;
   std::cout << ">> " << std::flush;
   while(std::getline(std::cin, source)){
