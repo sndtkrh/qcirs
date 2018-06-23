@@ -7,7 +7,7 @@ QCirS is a quantum circuit simulator.
 To build QCirS, followings are required:
 - C++ compiler with C++14 capabilities
     - g++ 6.4 is recomended.
-- Boost C++ Libraries
+- Boost C++ Libraries version 1.66 or greater
     - to construct parser using boost::spirit::qi
 - CMake 2.8 or greater
 
