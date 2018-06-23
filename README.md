@@ -12,7 +12,7 @@ To build QCirS, followings are required:
 - CMake 2.8 or greater
 
 ## Building and Installing
-```
+```bash
 $ git clone git@github.com:sndtkrh/qcirs.git
 $ cd qcirs
 $ mkdir build
