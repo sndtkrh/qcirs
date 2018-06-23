@@ -13,7 +13,7 @@ To build QCirS, followings are required:
 
 ## Building and Installing
 ```bash
-$ git clone git@github.com:sndtkrh/qcirs.git
+$ git clone https://github.com/sndtkrh/qcirs.git
 $ cd qcirs
 $ mkdir build
 $ cd ./build
