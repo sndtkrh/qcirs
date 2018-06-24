@@ -41,8 +41,8 @@ $ ./dj
 and you will get the result:
 
 ```
-The probability of results of measurement is [ 1 0 0 0 ]
-Result of appling Deutsch-Jozsa algorithm to a constant function:
+Result of applying D-J algorithm to a constant function:
+The probability of results of measurement is [ 1 0 0 0 ].
 (-0.707107,0)
 (0,0)
 (0,0)
@@ -53,8 +53,8 @@ Result of appling Deutsch-Jozsa algorithm to a constant function:
 (0,0)
 This function is constant.
 
-The probability of results of measurement is [ 0 0 1 0 ]
-Result of appling Deutsch-Jozsa algorithm to a balanced function:
+Result of applying D-J algorithm to a balanced function:
+The probability of results of measurement is [ 0 0 1 0 ].
 (0,0)
 (0,0)
 (-0.707107,0)
